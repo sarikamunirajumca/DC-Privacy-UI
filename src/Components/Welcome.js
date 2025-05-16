@@ -10,7 +10,7 @@ function Welcome({ onNext }) {
       alert("Please fill out all fields before continuing.");
       return;
     }
-    onNext();
+    onNext({ state: selectedState, requestFor });
   };
 
   const states = [
