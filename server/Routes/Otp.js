@@ -88,8 +88,10 @@ router.post('/store-user-request', async (req, res) => {
     const otpRecord = await Otp.findOne({ email, verified: true });
     if (!otpRecord) return res.status(403).json({ message: 'Email not verified' });
 
-    // Generate unique requestId
-    const requestId = uuidv4();
+    // Generate unique 8-digit requestId starting with year
+    const year = new Date().getFullYear().toString().slice(-2); // e.g., '25'
+    const random = Math.floor(100000 + Math.random() * 900000); // 6 random digits
+    const requestId = `${year}${random}`; // e.g., '25123456'
 
     // Save user request
     const saved = await new UserRequest({

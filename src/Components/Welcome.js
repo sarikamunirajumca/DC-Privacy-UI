@@ -4,6 +4,8 @@ function Welcome({ onNext }) {
   const [selectedState, setSelectedState] = useState("");
   const [requestFor, setRequestFor] = useState("");
   const [isAffirmed, setIsAffirmed] = useState("");
+  const [showFAQ, setShowFAQ] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
 
   const handleNext = () => {
     if (!selectedState || !requestFor || isAffirmed === "") {
@@ -44,10 +46,15 @@ function Welcome({ onNext }) {
             To make a request regarding your personal information, please provide the details
             below to proceed.
           </p>
-          <a href="#" style={{ color: "#0056b3" }}>Frequently Asked Questions</a>
+          <button
+            style={{ color: "#0056b3", background: "none", border: "none", padding: 0, cursor: "pointer", textDecoration: "underline" }}
+            onClick={() => setShowFAQ(true)}
+          >
+            Frequently Asked Questions
+          </button>
         </div>
 
-        {/* Right Section */}
+        {/* Right Section: The form */}
         <div style={{
           flex: 1,
           border: "1px solid #ccc",
@@ -146,17 +153,56 @@ function Welcome({ onNext }) {
       {/* Footer */}
       <div style={{ marginTop: "60px", textAlign: "center" }}>
         <p>Questions or concerns?</p>
-        <button style={{
-          padding: "10px 16px",
-          backgroundColor: "#f0f0f0",
-          border: "1px solid #ccc",
-          borderRadius: "20px",
-          fontWeight: "bold",
-          cursor: "pointer"
-        }}>
+        <button
+          style={{
+            padding: "10px 16px",
+            backgroundColor: "#f0f0f0",
+            border: "1px solid #ccc",
+            borderRadius: "20px",
+            fontWeight: "bold",
+            cursor: "pointer"
+          }}
+          onClick={() => setShowHelp(true)}
+        >
           Get Help
         </button>
       </div>
+
+      {/* FAQ Modal */}
+      {showFAQ && (
+        <div style={{
+          position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh",
+          background: "rgba(0,0,0,0.3)", display: "flex", alignItems: "center", justifyContent: "center"
+        }}>
+          <div style={{
+            background: "#fff", padding: "30px", borderRadius: "8px", maxWidth: "500px", width: "90%"
+          }}>
+            <h2>Frequently Asked Questions</h2>
+            <ul>
+              <li>How do I submit a privacy request?</li>
+              <li>What information do I need to provide?</li>
+              <li>How long does it take to process my request?</li>
+            </ul>
+            <button onClick={() => setShowFAQ(false)} style={{ marginTop: "20px" }}>Close</button>
+          </div>
+        </div>
+      )}
+
+      {/* Help Modal */}
+      {showHelp && (
+        <div style={{
+          position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh",
+          background: "rgba(0,0,0,0.3)", display: "flex", alignItems: "center", justifyContent: "center"
+        }}>
+          <div style={{
+            background: "#fff", padding: "30px", borderRadius: "8px", maxWidth: "500px", width: "90%"
+          }}>
+            <h2>Get Help</h2>
+            <p>If you have any questions or need assistance, please contact our support team at <a href="mailto:sarikamuniraj08@gmail.com">sarikamuniraj08@gmail.com</a>.</p>
+            <button onClick={() => setShowHelp(false)} style={{ marginTop: "20px" }}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
